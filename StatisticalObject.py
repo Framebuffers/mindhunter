@@ -8,15 +8,17 @@ from scipy.stats import norm
 from scipy import stats
 from typing import List, Literal, Union
 
-""" because I always for get how to do list comprehensions:
-
-[expression for item in iterable if condition]
-#    ↑         ↑        ↑           ↑
-# Select    foreach   source    Where
-
-"""
-
 class StatisticalObject:
+    """ Wrapper for `DataFrame`, adding quick access to statistical values, tools and functions.
+    
+    Provides facilities to:
+        - Clean a DataFrame
+        - Obtain columns by passing names as arguments
+        - Access essencial stats from a DataFrame
+        
+    To access plotting capabilities, refer to `PlottableObject`. 
+    
+    """
     
     def __init__(self, dataframe: pd.DataFrame) -> None:
         self.statistical_object_df = dataframe.copy()
@@ -179,15 +181,6 @@ class StatisticalObject:
             raise ValueError(f"Column '{column}' not found in cached stats")
         return self._cached_stats[column]
    
-   # calculation methods: 
-    def get_coefficient_variation(self, *columns) -> pd.Series:
-        data = self.statistical_object_df if not columns else self.statistical_object_df[list(columns)]
-        return data.std() / data.mean() 
-    
     def z_score(self) -> pd.DataFrame:
         numeric_data = self.statistical_object_df.select_dtypes(include=[np.number])
         return (numeric_data - numeric_data.mean()) / numeric_data.std()
-    
-
-    
-    
