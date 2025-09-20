@@ -5,13 +5,6 @@ import numpy as np
 from scipy.stats import norm
 
 class StatisticalUtilities:
-    """ Utilities to calculate statistical values for individual variables.
-    
-    Singleton class with access to commonly-used calculations for statistical values.
-    These methods act only on the variables passed as arguments.
-    
-    """
-    
     _instance = None
     
     def __new__(cls, *args, **kwargs):
@@ -20,6 +13,12 @@ class StatisticalUtilities:
         return cls._instance
     
     def __init__(self, value):
+        """ Utilities to calculate statistical values for individual variables.
+        
+        Singleton class with access to commonly-used calculations for statistical values.
+        These methods act only on the variables passed as arguments.
+        
+        """
         if not hasattr(self, '_initialized'):
             self.value = value
             self._initialized = True

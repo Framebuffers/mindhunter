@@ -2,17 +2,17 @@ import StatisticalObject as so
 import pandas as pd
 
 class PlottableObject:
-    """ `StatisticalObject` with plotting capabilities.
-        
+  
+    def __init__(self, stat: so.StatisticalObject) -> None:
+        """ `StatisticalObject` with plotting capabilities.
+                
         Args:
             `stat`: A StatisticalObject.
         
         Returns:
             A PlottableObject, based on the DataFrame held inside the input StatisticalObject    
-    
-    """
-
-    def __init__(self, stat: so.StatisticalObject) -> None:
+        
+        """
         self.stat_obj = stat
 
     def get_statisticalobject(self) -> so.StatisticalObject:

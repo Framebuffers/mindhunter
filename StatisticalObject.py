@@ -9,18 +9,19 @@ from scipy import stats
 from typing import List, Literal, Union
 
 class StatisticalObject:
-    """ Wrapper for `DataFrame`, adding quick access to statistical values, tools and functions.
-    
-    Provides facilities to:
-        - Clean a DataFrame
-        - Obtain columns by passing names as arguments
-        - Access essencial stats from a DataFrame
-        
-    To access plotting capabilities, refer to `PlottableObject`. 
-    
-    """
+ 
     
     def __init__(self, dataframe: pd.DataFrame) -> None:
+        """ Wrapper for `DataFrame`, adding quick access to statistical values, tools and functions.
+            
+            Provides facilities to:
+                - Clean a DataFrame
+                - Obtain columns by passing names as arguments
+                - Access essencial stats from a DataFrame
+                
+            To access plotting capabilities, refer to `PlottableObject`. 
+            
+        """
         self.statistical_object_df = dataframe.copy()
         self.df_stats = self.statistical_object_df.describe()
         self.df_columns = self.statistical_object_df.columns.to_list()
