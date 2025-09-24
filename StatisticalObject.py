@@ -28,11 +28,11 @@ class StatisticalObject:
         self._cached_stats = {}
         self._compute_essential_stats()
     
-    # creation methods
+    """Creation Methods"""
     def from_csv(self, csv) -> StatisticalObject: # type: ignore
         return StatisticalObject(pd.read_csv(csv))
     
-    # data management methods
+    """Data Management Methods"""
     def clean_df(self, *chars_to_remove) -> None:
         if chars_to_remove:
             escaped_chars = ''.join(re.escape(char) for char in chars_to_remove)
@@ -65,10 +65,60 @@ class StatisticalObject:
     def get_df(self) ->  pd.DataFrame:
         return self.statistical_object_df
     
+    """Calculation Methods"""
     def describe(self, *columns) -> pd.DataFrame:
         data = self.statistical_object_df if not columns else self.statistical_object_df[[*columns]]
         return data.describe()
    
+    @property
+    def essential_stats(self) -> dict:
+        """ Get all cached essential statistics.
+
+            Returns:
+                A dictionary with essential statistical values for: central tendency, spread/variability, distribution shape, data quality, extreme values and key ratios. The values stored are:
+                    - #Central Tendency:
+                        - mean
+                        - median
+                        - mode
+                    - #Spread/Variability (for testing):
+                        - std #(standard deviation)
+                        - variance
+                        - range
+                        - iqr #(inter-quantile range)
+                        - mad #(median absolute deviation)
+                    - #Distribution Shape (for normality assumptions):
+                        - skewness
+                        - kurtosis
+                    - #Data Quality:
+                        - count
+                        - missing_count
+                        - missing_pct
+                    - #Extreme Values (outliers):
+                        - min
+                        - max
+                        - q1
+                        - q3
+                    - #Key Ratios (for standardised measurements):
+                        - cv #(coefficient of variation)
+                        - sem #(standard error of mean)
+        """
+        
+        return self._cached_stats
+    
+    def get_quick_stats(self, column: str) -> dict:
+        """ Get essential stats for a specific column.
+        
+        """
+        
+        if column not in self._cached_stats:
+            raise ValueError(f"Column '{column}' not found in cached stats")
+        return self._cached_stats[column]
+   
+    def z_score(self) -> pd.DataFrame:
+        numeric_data = self.statistical_object_df.select_dtypes(include=[np.number])
+        return (numeric_data - numeric_data.mean()) / numeric_data.std()
+
+    """Private Methods/Helpers"""
     def _compute_essential_stats(self):
         """ Compute and cache essential statistical measures.
         
@@ -137,51 +187,3 @@ class StatisticalObject:
                 'cv': data.std() / data.mean() if data.mean() != 0 else np.inf,
                 'sem': data.std() / np.sqrt(len(data))
             }
-            
-    @property
-    def essential_stats(self) -> dict:
-        """ Get all cached essential statistics.
-
-            Returns:
-                A dictionary with essential statistical values for: central tendency, spread/variability, distribution shape, data quality, extreme values and key ratios. The values stored are:
-                    - #Central Tendency:
-                        - mean
-                        - median
-                        - mode
-                    - #Spread/Variability (for testing):
-                        - std #(standard deviation)
-                        - variance
-                        - range
-                        - iqr #(inter-quantile range)
-                        - mad #(median absolute deviation)
-                    - #Distribution Shape (for normality assumptions):
-                        - skewness
-                        - kurtosis
-                    - #Data Quality:
-                        - count
-                        - missing_count
-                        - missing_pct
-                    - #Extreme Values (outliers):
-                        - min
-                        - max
-                        - q1
-                        - q3
-                    - #Key Ratios (for standardised measurements):
-                        - cv #(coefficient of variation)
-                        - sem #(standard error of mean)
-        """
-        
-        return self._cached_stats
-    
-    def get_quick_stats(self, column: str) -> dict:
-        """ Get essential stats for a specific column.
-        
-        """
-        
-        if column not in self._cached_stats:
-            raise ValueError(f"Column '{column}' not found in cached stats")
-        return self._cached_stats[column]
-   
-    def z_score(self) -> pd.DataFrame:
-        numeric_data = self.statistical_object_df.select_dtypes(include=[np.number])
-        return (numeric_data - numeric_data.mean()) / numeric_data.std()
