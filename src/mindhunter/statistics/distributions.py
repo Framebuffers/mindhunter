@@ -1,4 +1,4 @@
-from core.analyzer import DataAnalyzer
+from ..core.analyzer import DataAnalyzer
 import numpy as np
 
 class DistributionAnalyzer:

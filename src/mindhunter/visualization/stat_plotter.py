@@ -1,4 +1,4 @@
-from core.analyzer import DataAnalyzer
+from ..core.analyzer import DataAnalyzer
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np

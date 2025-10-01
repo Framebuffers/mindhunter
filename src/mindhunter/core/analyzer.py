@@ -8,6 +8,7 @@ class DataAnalyzer:
         self._cached_stats = {}
         self.df_stats = self.df.describe()
         self.df_columns = self.df.columns.to_list()
+        self._compute_essential_stats()
     
     @property
     def df(self) -> pd.DataFrame:
