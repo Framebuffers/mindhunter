@@ -1,4 +1,4 @@
-from core.analyzer import DataAnalyzer
+from ..core.analyzer import DataAnalyzer
 from typing import Literal
 from scipy import stats 
 from scipy.stats import norm

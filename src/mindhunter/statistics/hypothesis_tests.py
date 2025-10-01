@@ -1,5 +1,5 @@
-from core.analyzer import DataAnalyzer
-from utils.toolkit import AnalysisToolkit 
+from ..core.analyzer import DataAnalyzer
+from ..utils.toolkit import AnalysisToolkit
 from typing import Literal
 from scipy import stats
 import scipy as sp
