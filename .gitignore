@@ -34,3 +34,4 @@ venv/
 Thumbs.db
 
 .old/
+uv.lock
