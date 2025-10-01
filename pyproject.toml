@@ -22,7 +22,7 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "--cov=src/project_name --cov-report=term-missing"
+addopts = "--cov=src/mindhunter --cov-report=term-missing"
 
 [tool.uv]
 dev-dependencies = [
