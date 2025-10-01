@@ -26,8 +26,7 @@ jobs:
       
       - name: Run tests (small dataset)
         run: |
-          uv run --isolated --no-project --with ./dist/*.whl pytest -m "not large"
-          uv run --isolated --no-project --with ./dist/*.tar.gz pytest -m "not large"
+          uv run --isolated --no-project --with pytest -m "not large"
         env:
           TEST_SIZE: small
   
