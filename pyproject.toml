@@ -5,21 +5,20 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/mindhunter"]
 dependencies = [
-    "pandas>=2.0.0",
-    "numpy>=1.24.0",
-    "seaborn>=0.12.0",
-    "matplotlib>=3.7.0",
-    "scipy>=1.10.0",
+    "faker>=37.8.0",
+    "matplotlib>=3.10.6",
+    "numpy>=2.3.3",
+    "pandas>=2.3.3",
+    "seaborn>=0.13.2",
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
-    "faker>=19.0.0",
+    "scipy>=1.10.0",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "--cov=src/mindhunter --cov-report=term-missing"
-
 
 [project]
 name = "mindhunter"
@@ -35,5 +34,5 @@ dependencies = [
     "seaborn>=0.13.2",
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
-    "faker>=19.0.0",
+    "scipy>=1.10.0",
 ]
