@@ -18,12 +18,14 @@ lib64/
 .installed.cfg
 *.manifest
 
+
 # Pytest cache
 .pytest_cache/
 
 # Virtual environment
 .env/
 venv/
+.pypirc
 
 # IDE specific files
 .vscode/
