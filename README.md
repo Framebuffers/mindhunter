@@ -4,6 +4,23 @@
 
 Extensions for DataFrames to make statistical and analysis operations much, *much* more comfortable and convenient. Turns your `DataFrame` into a `StatFrame`, composing Mindhunter's new features *over* it, supercharging its capabilities without sacrificing compatibility. 
 
+Example:
+
+```python
+import pandas as pd
+
+from mindhunter import StatFrame
+from mindhunter.visualization import StatPlotter
+
+dataset = pd.read_csv('Fish.csv')                            # load your data
+data = StatFrame(dataset)                                    # create a StatFrame
+data.clean_df()                                              # clean your data
+plottable = StatPlotter(data)                                # turn your StatFrame into a StatPlotter
+plottable.plot_normal_distr(data_to_test=data.df['width'])   # create a set of normal distribution validation graphs
+```
+
+<img width="1242" height="1107" alt="fish_nd" src="https://github.com/user-attachments/assets/bba2091e-186a-4a23-9e6e-3554a4460b19" />
+
 ---
 
 ## 📦 Installation
@@ -79,3 +96,4 @@ In short: it uses basic OOP **composition**, against all advise, to pass the `St
 
 
 This library will be updated fairly regularly, as I start collecting and tidying up more and more little tools, and taking more advantage of the internal mechanisms. I am *much* more of a developer than a data analyst, so I need much more help knowing what the community *needs* for me to keep on improving the library. If you have any issue, suggestion or comment, feel free to create a new issue!
+
