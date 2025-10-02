@@ -1,3 +1,3 @@
-from .toolkit import AnalysisToolkit
+from .toolkit import AnalyticalTools
 
-__all__ = ['AnalysisToolkit']
+__all__ = ['AnalyticalTools']

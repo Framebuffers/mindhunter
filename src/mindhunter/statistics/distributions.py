@@ -1,9 +1,9 @@
-from ..core.analyzer import DataAnalyzer
+from ..mindhunter import StatFrame
 import numpy as np
 
 class DistributionAnalyzer:
-    def __init__(self, analyzer: DataAnalyzer) -> None:
-        self.da = analyzer
+    def __init__(self, sf: StatFrame) -> None:
+        self.da = sf
     
     def check_basic_normality(self, data):
         mean_val = np.mean(data)

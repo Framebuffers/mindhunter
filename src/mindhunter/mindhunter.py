@@ -2,18 +2,22 @@ import pandas as pd
 import numpy as np
 import re
 
-class DataAnalyzer:
-    def __init__(self, df: pd.DataFrame):
+class StatFrame:
+    def __init__(self, df: pd.DataFrame, precalc_data: bool = True):
         self._df = df.copy()
         self._cached_stats = {}
         self.df_stats = self.df.describe()
         self.df_columns = self.df.columns.to_list()
-        self._compute_essential_stats()
+        if precalc_data == True:
+            self._compute_essential_stats()
     
     @property
     def df(self) -> pd.DataFrame:
         return self._df
 
+    def update(self):
+        self._compute_essential_stats()
+    
     def clean_df(self, *chars_to_remove) -> None:
         if chars_to_remove:
             escaped_chars = ''.join(re.escape(char) for char in chars_to_remove)
@@ -176,7 +180,32 @@ class DataAnalyzer:
 
     def _compute_column_stats(self, column_name: str) -> None:
         data = self._df[column_name].dropna()
-        
+        # {
+        #             'mean': data.mean(),
+        #             'median': data.median(),
+        #             'mode': data.mode().iloc[0] if not data.mode().empty else np.nan,
+                    
+        #             'std': data.std(),
+        #             'variance': data.var(),
+        #             'range': data.max() - data.min(),
+        #             'iqr': data.quantile(0.75) - data.quantile(0.25),
+        #             'mad': (data - data.median()).abs().median(),
+                    
+        #             'skewness': data.skew(),
+        #             'kurtosis': data.kurtosis(),
+                    
+        #             'count': len(data),
+        #             'missing_count': self._df[col].isna().sum(),
+        #             'missing_pct': self._df[col].isna().mean(),
+                    
+        #             'min': data.min(),
+        #             'max': data.max(),
+        #             'q1': data.quantile(0.25),
+        #             'q3': data.quantile(0.75),
+                    
+        #             'cv': data.std() / data.mean() if data.mean() != 0 else np.inf,
+        #             'sem': data.std() / np.sqrt(len(data))
+        #         }
         self._df[column_name] = {
             'mean': data.mean(),
             'std': data.std(),
