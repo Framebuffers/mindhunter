@@ -22,7 +22,7 @@ addopts = "--cov=src/mindhunter --cov-report=term-missing"
 
 [project]
 name = "mindhunter"
-version = "0.1.0"
+version = "0.1.1"
 description = "DataFrame extensions for data analysis."
 readme = "README.md"
 requires-python = ">=3.12"
