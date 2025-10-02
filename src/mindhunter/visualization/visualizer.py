@@ -18,7 +18,7 @@ class StatVisualizer:
                 if col1 in self.da.df.columns and col2 in self.da.df.columns:
                     plt.figure(figsize=(8, 6))
                     sns.scatterplot(data=self.da.df, x=col1, y=col2)
-                    plt.title(f'Scatterplot de {col1} vs {col2}')
+                    plt.title(f'{col1} vs {col2}')
                     plt.xlabel(col1)
                     plt.ylabel(col2)
                     plt.show()
@@ -28,7 +28,7 @@ class StatVisualizer:
             if col in self.da.df.columns:
                 plt.figure(figsize=(8, 6))
                 sns.boxplot(y=self.da.df[col])
-                plt.title(f'Boxplot de {col}')
+                plt.title(f'{col} Boxplot')
                 plt.ylabel(col)
                 plt.show()
                 

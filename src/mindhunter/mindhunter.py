@@ -27,52 +27,52 @@ class StatFrame:
 
         normalized_columns = [
             re.sub(pattern, '_', col.lower()).replace(' ', '_')
-            for col in self.df_copy.columns
+            for col in self._df.columns
         ]
         
-        self.df_copy.columns = normalized_columns
-        self.df_copy.dropna(inplace=True)
-        self.df_copy.drop_duplicates(inplace=True)
+        self._df.columns = normalized_columns
+        self._df.dropna(inplace=True)
+        self._df.drop_duplicates(inplace=True)
     
     def locate_zero_rows(self, columns: list[str] = None,  # type: ignore
                     return_indices: bool = False) -> pd.DataFrame | list:
 
         if columns is None:
-            check_columns = self.df_copy.select_dtypes(include=[np.number]).columns.tolist()
+            check_columns = self._df.select_dtypes(include=[np.number]).columns.tolist()
         else:
             check_columns = columns
         
-        zero_mask = (self.df_copy[check_columns] == 0).any(axis=1)
-        zero_rows = self.df_copy[zero_mask]
+        zero_mask = (self._df[check_columns] == 0).any(axis=1)
+        zero_rows = self._df[zero_mask]
         
         if return_indices:
             return zero_rows.index.tolist()
         return zero_rows
     
     def analyze_zero_removal(self) -> pd.DataFrame:
-        numeric_cols = self.df_copy.select_dtypes(include=[np.number]).columns
+        numeric_cols = self._df.select_dtypes(include=[np.number]).columns
         
         analysis = []
         for col in numeric_cols:
-            zero_count = (self.df_copy[col] == 0).sum()
-            zero_pct = (zero_count / len(self.df_copy)) * 100
+            zero_count = (self._df[col] == 0).sum()
+            zero_pct = (zero_count / len(self._df)) * 100
             
             analysis.append({
                 'column': col,
                 'zero_count': zero_count,
                 'zero_percentage': f"{zero_pct:.1f}%",
-                'total_rows': len(self.df_copy)
+                'total_rows': len(self._df)
             })
         
         return pd.DataFrame(analysis)
     
     def remove_exact_zeros(self, update_cache: bool = True) -> dict:
-        numeric_cols = self.df_copy.select_dtypes(include=[np.number]).columns
+        numeric_cols = self._df.select_dtypes(include=[np.number]).columns
         
-        zero_mask = (self.df_copy[numeric_cols] == 0.0).any(axis=1)
+        zero_mask = (self._df[numeric_cols] == 0.0).any(axis=1)
         
-        original_length = len(self.df_copy)
-        self.df_copy = self.df_copy[~zero_mask].reset_index(drop=True)
+        original_length = len(self._df)
+        self._df = self._df[~zero_mask].reset_index(drop=True)
         
         if update_cache:
             self._cached_stats = {}
@@ -80,19 +80,19 @@ class StatFrame:
         
         return {
             'method': 'exact_zeros',
-            'rows_removed': original_length - len(self.df_copy),
-            'new_length': len(self.df_copy)
+            'rows_removed': original_length - len(self._df),
+            'new_length': len(self._df)
         }
 
     def remove_near_zeros(self, tolerance: float = 1e-10, 
                         columns: list[str] = None, update_cache: bool = True) -> dict: # type: ignore
         if columns is None:
-            columns = self.df_copy.select_dtypes(include=[np.number]).columns.tolist()
+            columns = self._df.select_dtypes(include=[np.number]).columns.tolist()
         
-        near_zero_mask = (abs(self.df_copy[columns]) <= tolerance).any(axis=1)
+        near_zero_mask = (abs(self._df[columns]) <= tolerance).any(axis=1)
         
-        original_length = len(self.df_copy)
-        self.df_copy = self.df_copy[~near_zero_mask].reset_index(drop=True)
+        original_length = len(self._df)
+        self._df = self._df[~near_zero_mask].reset_index(drop=True)
         
         if update_cache:
             self._cached_stats = {}
@@ -101,13 +101,16 @@ class StatFrame:
         return {
             'method': 'near_zeros',
             'tolerance_used': tolerance,
-            'rows_removed': original_length - len(self.df_copy),
+            'rows_removed': original_length - len(self._df),
             'columns_checked': columns
         }  
     
     def describe_columns(self, *columns: str) -> pd.DataFrame:
         return self._df[list(columns)].describe() if columns else self._df.describe()
 
+    def get_stats(self) -> pd.DataFrame:
+        return pd.DataFrame.from_dict(self._cached_stats)
+    
     def _compute_essential_stats(self):
 
             """ Compute and cache essential statistical measures.
@@ -180,32 +183,7 @@ class StatFrame:
 
     def _compute_column_stats(self, column_name: str) -> None:
         data = self._df[column_name].dropna()
-        # {
-        #             'mean': data.mean(),
-        #             'median': data.median(),
-        #             'mode': data.mode().iloc[0] if not data.mode().empty else np.nan,
-                    
-        #             'std': data.std(),
-        #             'variance': data.var(),
-        #             'range': data.max() - data.min(),
-        #             'iqr': data.quantile(0.75) - data.quantile(0.25),
-        #             'mad': (data - data.median()).abs().median(),
-                    
-        #             'skewness': data.skew(),
-        #             'kurtosis': data.kurtosis(),
-                    
-        #             'count': len(data),
-        #             'missing_count': self._df[col].isna().sum(),
-        #             'missing_pct': self._df[col].isna().mean(),
-                    
-        #             'min': data.min(),
-        #             'max': data.max(),
-        #             'q1': data.quantile(0.25),
-        #             'q3': data.quantile(0.75),
-                    
-        #             'cv': data.std() / data.mean() if data.mean() != 0 else np.inf,
-        #             'sem': data.std() / np.sqrt(len(data))
-        #         }
+
         self._df[column_name] = {
             'mean': data.mean(),
             'std': data.std(),
