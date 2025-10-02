@@ -1,3 +1,5 @@
+<img width="550" height="188" alt="mindhunter-header" src="https://github.com/user-attachments/assets/47fbbe27-251b-4961-80dc-809c73020d10" />
+
 # 🐯 mindhunter
 
 Extensions for DataFrames to make statistical and analysis operations much, *much* more comfortable and convenient. Turns your `DataFrame` into a `StatFrame`, composing Mindhunter's new features *over* it, supercharging its capabilities without sacrificing compatibility. 
@@ -74,5 +76,6 @@ I've been studying data analysis and, over the months, I've been collecting a bu
 In short: it uses basic OOP **composition**, against all advise, to pass the `StatFrame` as an argument. That class holds the `DataFrame` itself, and all operations are done through the `StatFrame` directly to the DF. All operations act directly on the source, and calling `update()` will re-trigger the caching process.
 
 ### 🔮 So, what's the future?
+
 
 This library will be updated fairly regularly, as I start collecting and tidying up more and more little tools, and taking more advantage of the internal mechanisms. I am *much* more of a developer than a data analyst, so I need much more help knowing what the community *needs* for me to keep on improving the library. If you have any issue, suggestion or comment, feel free to create a new issue!
