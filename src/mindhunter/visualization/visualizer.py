@@ -1,4 +1,4 @@
-from ..core.analyzer import DataAnalyzer
+from ..mindhunter import StatFrame
 from typing import List
 import matplotlib.pyplot as plt 
 import seaborn as sns
@@ -6,9 +6,9 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 
-class Visualizer:
-    def __init__(self, analyzer: DataAnalyzer):
-        self.da = analyzer
+class StatVisualizer:
+    def __init__(self, sf: StatFrame):
+        self.da = sf
     
     def create_scatterplot(self, columns: List[str]) -> None:
         for i in range(len(columns)):

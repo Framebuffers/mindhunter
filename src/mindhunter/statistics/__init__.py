@@ -1,4 +1,4 @@
 from .distributions import DistributionAnalyzer
-from .hypothesis_tests import HypothesisTester
+from .hypothesis import HypothesisAnalyzer
 
-__all__ = ['DistributionAnalyzer', 'HypothesisTester']
+__all__ = ['DistributionAnalyzer', 'HypothesisAnalyzer']

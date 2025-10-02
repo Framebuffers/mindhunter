@@ -5,26 +5,26 @@ Statistical Analysis Extensions for Pandas DataFrames
 
 """
 # core
-from .core.analyzer import DataAnalyzer
+from .mindhunter import StatFrame
 
 # statistics
 from .statistics.distributions import DistributionAnalyzer
-from .statistics.hypothesis_tests import HypothesisTester
+from .statistics.hypothesis import HypothesisAnalyzer
 
 # utils
-from .utils.toolkit import AnalysisToolkit
+from .utils.toolkit import AnalyticalTools
 
 # visualization
-from .visualization.stat_plotter import StatisticalPlotter
-from .visualization.plotter import Visualizer
+from .visualization.stat_plotter import StatPlotter
+from .visualization.visualizer import StatVisualizer
 
 __version__ = '0.1.0'
 __name__ = 'mindhunter'
 __all__ = [
-    'DataAnalyzer',
+    'StatFrame',
     'DistributionAnalyzer',
-    'HypothesisTester',
-    'AnalysisToolkit',
-    'StatisticalPlotter',
-    'Visualizer',
+    'HypothesisAnalyzer',
+    'AnalyticalTools',
+    'StatPlotter',
+    'StatVisualizer',
 ]

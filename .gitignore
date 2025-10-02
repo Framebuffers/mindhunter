@@ -1,11 +1,36 @@
 # Python-generated files
 __pycache__/
 *.py[oc]
-build/
-dist/
 wheels/
-*.egg-info
 
-# Virtual environments
-.venv
-.old
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+*.egg-info/
+.installed.cfg
+*.manifest
+
+# Pytest cache
+.pytest_cache/
+
+# Virtual environment
+.env/
+venv/
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+.old/

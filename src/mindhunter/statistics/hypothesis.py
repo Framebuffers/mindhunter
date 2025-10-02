@@ -1,5 +1,5 @@
-from ..core.analyzer import DataAnalyzer
-from ..utils.toolkit import AnalysisToolkit
+from ..mindhunter import StatFrame
+from ..utils.toolkit import AnalyticalTools
 from typing import Literal
 from scipy import stats
 import scipy as sp
@@ -7,10 +7,10 @@ import pandas as pd
 import numpy as np
 
 
-class HypothesisTester:
-    def __init__(self, analyzer: DataAnalyzer):
-        self.da = analyzer
-        self.tools = AnalysisToolkit(analyzer)
+class HypothesisAnalyzer:
+    def __init__(self, sf: StatFrame):
+        self.da = sf
+        self.tools = AnalyticalTools(sf)
     
     def hypothesis_test(self, 
                         column: str,

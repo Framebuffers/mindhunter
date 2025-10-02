@@ -1,4 +1,4 @@
-from ..core.analyzer import DataAnalyzer
+from ..mindhunter import StatFrame
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -6,9 +6,9 @@ from scipy.stats import norm
 from scipy import stats
 import scipy as sp
 
-class StatisticalPlotter:
-    def __init__(self, analyzer: DataAnalyzer):
-        self.da = analyzer
+class StatPlotter:
+    def __init__(self, sf: StatFrame):
+        self.da = sf
     
     def plot_z_scores(self, *columns: str) -> None:
         if not columns:

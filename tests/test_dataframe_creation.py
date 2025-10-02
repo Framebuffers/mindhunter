@@ -1,4 +1,4 @@
-from mindhunter.core import DataAnalyzer
+from mindhunter import StatFrame
 from faker import Faker
 
 import os
@@ -35,7 +35,7 @@ def sample_analyzer():
         'category': fake.random_elements(elements=['A', 'B', 'C'], length=size)
     })
     
-    return DataAnalyzer(test_df)
+    return StatFrame(test_df)
 
 
 def test_cache_not_none(sample_analyzer):
@@ -47,7 +47,7 @@ def test_cache_not_none(sample_analyzer):
     assert sample_analyzer._cached_stats is not None
 
 @pytest.mark.large
-def test_heavy_computation(sample_analyzer: DataAnalyzer):
+def test_heavy_computation(sample_analyzer: StatFrame):
     """
     
     Skipped in CI - only runs locally.
@@ -74,7 +74,7 @@ def test_heavy_computation(sample_analyzer: DataAnalyzer):
     df = pd.DataFrame(data)
     assert df is not None
 
-    da = DataAnalyzer(df)
+    da = StatFrame(df)
     assert da is not None
  
     result = sample_analyzer._cached_stats

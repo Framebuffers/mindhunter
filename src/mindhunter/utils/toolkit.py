@@ -1,4 +1,4 @@
-from ..core.analyzer import DataAnalyzer
+from ..mindhunter import StatFrame
 from typing import Literal
 from scipy import stats 
 from scipy.stats import norm
@@ -8,9 +8,9 @@ from typing import Tuple, Any
 import pandas as pd
 import numpy as np
 
-class AnalysisToolkit:
-    def __init__(self, analyzer: DataAnalyzer):
-        self.da = analyzer
+class AnalyticalTools:
+    def __init__(self, sf: StatFrame):
+        self.da = sf
     
     def z_to_p_value(self,
                       z: float,
