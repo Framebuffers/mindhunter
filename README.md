@@ -2,6 +2,8 @@
 
 # 🐯 mindhunter
 
+[![Deployment to PyPI](https://github.com/Framebuffers/mindhunter/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/Framebuffers/mindhunter/actions/workflows/test.yaml)
+
 Extensions for DataFrames to make statistical and analysis operations much, *much* more comfortable and convenient. Turns your `DataFrame` into a `StatFrame`, composing Mindhunter's new features *over* it, supercharging its capabilities without sacrificing compatibility. 
 
 Example:
