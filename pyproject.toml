@@ -38,3 +38,5 @@ dependencies = [
     "statsmodels>=0.14.5",
     "patsy>=1.0.1",
 ]
+authors =[
+    { "name" = "Sebastian Torres Sagredo (Framebuffer(s))", "email" = " 26495556+Framebuffers@users.noreply.github.com" } ]
