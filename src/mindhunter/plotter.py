@@ -1,4 +1,4 @@
-from ..mindhunter import StatFrame
+from .mindhunter import StatFrame
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -28,36 +28,6 @@ class StatPlotter:
         plt.title('Z-scores Across Variables')
         plt.xticks(rotation=45)
         plt.show()
-    
-    #TODO: fix    
-    # def plot_coefficient_variation(self, 
-    #                                 column_name: str,
-    #                                 title: str = 'Coefficient of Variation of Indicators', 
-    #                                 x_label: str = 'Indicators', 
-    #                                 y_label: str = 'Coefficient of Variation', 
-    #                                 rotation: int = 90, 
-    #                                 ha: str = 'right') -> None:
-    #     """ Graphs the Coefficient of Variation for each column.
-
-    #         The Coefficient of Variation is calculated as the standard deviation divided by the mean.
-    #         It is graphed as a barplot with the 5 most volatile indicators.
-
-    #         Args:
-    #             overall (pd.DataFrame): DataFrame held within the StatisticalObject.
-    #         Returns:
-    #             None
-    #         Raises:
-    #             None
-            
-    #         """
-    #     data_frame = self.da.df
-    #     plt.figure(figsize=(10, 6))
-    #     plt.title(title)
-    #     sns.barplot(x=data_frame[column_name], y=data_frame[column_name].std() / data_frame[column_name].mean(), width=.5)
-    #     plt.ylabel(y_label)
-    #     plt.xlabel(x_label)
-    #     plt.xticks(rotation=rotation, ha=ha)
-    #     plt.show()
 
     def plot_normality_check(self, column_name: str) -> None:
         basic_stats = self.da._cached_stats

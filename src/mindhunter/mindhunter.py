@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import re
+from pandas.api.types import is_bool_dtype, is_numeric_dtype
+from typing import List
 
 class StatFrame:
     def __init__(self, df: pd.DataFrame, precalc_data: bool = True):
@@ -10,6 +12,12 @@ class StatFrame:
         self.df_columns = self.df.columns.to_list()
         if precalc_data == True:
             self._compute_essential_stats()
+   
+    """
+    -------------------------------------------------------
+        DataFrame manipulation
+    -------------------------------------------------------
+    """
     
     @property
     def df(self) -> pd.DataFrame:
@@ -33,6 +41,44 @@ class StatFrame:
         self._df.columns = normalized_columns
         self._df.dropna(inplace=True)
         self._df.drop_duplicates(inplace=True)
+   
+    def numerical_to_bool(self, specific_columns: List[str] = None) -> None: # type: ignore
+        for col in self._df.columns:
+            unique_values = self._df[col].unique()
+            if all(val in [0, 1] for val in unique_values):
+                self._df[col] = self._df[col].astype(bool)
+
+
+    def get_bool_cols(self) -> pd.DataFrame:
+        df = self._df
+        return df[[col for col in df.columns if is_bool_dtype(df[col])]]
+    
+    def drop_binary_vals(self) -> pd.DataFrame:
+        return self._df.drop(columns=[col for col in self._df.columns if self._df[col].isin([0, 1]).all()])
+    
+    def get_outliers(self):
+        """
+            Within the StatFrame, searches for the largest numerical values for each column, and 
+            returns a DataFrame with a row for each column.
+            
+        """
+        return self._df.loc[self._df.idxmax(numeric_only=True)].select_dtypes(include=[np.number])
+    
+    def get_numerical_vals(self) -> pd.DataFrame:
+        return self._df[[col for col in self._df.columns if is_numeric_dtype(self._df[col])]]
+    
+    def get_string_vals(self) -> pd.DataFrame:
+        numerical = self.get_numerical_vals()
+        return self._df[[col for col in self._df.columns if col not in numerical]]
+
+    def get_binary_vals(self):
+        return self._df[[col for col in self._df.columns if is_bool_dtype(self._df[col])]]
+     
+    """
+    -------------------------------------------------------
+        Zero-values removal
+    -------------------------------------------------------
+    """
     
     def locate_zero_rows(self, columns: list[str] = None,  # type: ignore
                     return_indices: bool = False) -> pd.DataFrame | list:
@@ -104,7 +150,13 @@ class StatFrame:
             'rows_removed': original_length - len(self._df),
             'columns_checked': columns
         }  
-    
+ 
+    """
+    -------------------------------------------------------
+        Stats
+    -------------------------------------------------------
+    """
+       
     def describe_columns(self, *columns: str) -> pd.DataFrame:
         return self._df[list(columns)].describe() if columns else self._df.describe()
 

@@ -1,5 +1,5 @@
 from ..mindhunter import StatFrame
-from ..utils.toolkit import AnalyticalTools
+from ..tools import StatTools
 from typing import Literal
 from scipy import stats
 import scipy as sp
@@ -10,7 +10,7 @@ import numpy as np
 class HypothesisAnalyzer:
     def __init__(self, sf: StatFrame):
         self.da = sf
-        self.tools = AnalyticalTools(sf)
+        self.tools = StatTools(sf)
     
     def hypothesis_test(self, 
                         column: str,

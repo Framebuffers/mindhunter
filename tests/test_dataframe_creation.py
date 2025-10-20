@@ -20,7 +20,7 @@ def get_test_size():
     }[size]
 
 @pytest.fixture
-def sample_statframe():
+def sample_sf():
     """
     
     Generate randomized DataFrame based on test environment with both numerical and categorical values.
@@ -38,20 +38,20 @@ def sample_statframe():
     return StatFrame(test_df)
 
 
-def test_cache_not_none(sample_statframe):
+def test_cache_not_none(sample_sf):
     """
     
     Always runs - uses environment-based size.
     
     """
-    assert sample_statframe._cached_stats is not None
+    assert sample_sf._cached_stats is not None
 
 @pytest.mark.large
-def test_heavy_computation(sample_statframe: StatFrame):
+def test_heavy_computation(sample_sf: StatFrame):
     """
     
     Skipped in CI - only runs locally.
-    Checks running operations directy on the cached DF.
+    Checks running operations directly on the cached DF.
     
     """    
     fake = Faker()
@@ -77,5 +77,5 @@ def test_heavy_computation(sample_statframe: StatFrame):
     da = StatFrame(df)
     assert da is not None
  
-    result = sample_statframe._cached_stats
+    result = sample_sf._cached_stats
     assert result is not None

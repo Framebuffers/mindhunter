@@ -1,4 +1,4 @@
-from ..mindhunter import StatFrame
+from .mindhunter import StatFrame
 from typing import Literal
 from scipy import stats 
 from scipy.stats import norm
@@ -8,7 +8,7 @@ from typing import Tuple, Any
 import pandas as pd
 import numpy as np
 
-class AnalyticalTools:
+class StatTools:
     def __init__(self, sf: StatFrame):
         self.da = sf
     

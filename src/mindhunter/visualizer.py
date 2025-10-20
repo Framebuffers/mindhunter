@@ -1,10 +1,7 @@
-from ..mindhunter import StatFrame
+from .mindhunter import StatFrame
 from typing import List
 import matplotlib.pyplot as plt 
 import seaborn as sns
-import pandas as pd
-import numpy as np
-from scipy import stats
 
 class StatVisualizer:
     def __init__(self, sf: StatFrame):

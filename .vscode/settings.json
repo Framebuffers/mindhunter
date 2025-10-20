@@ -1,5 +1,8 @@
 {
     "python.analysis.extraPaths": [
         "./build/lib"
-    ]
+    ],
+    "cSpell.enabledFileTypes": {
+        "python": false
+    }
 }
